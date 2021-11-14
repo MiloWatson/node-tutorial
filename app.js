@@ -1,32 +1,25 @@
-const {readFile, writeFile} = require('fs').promises
-// const util = require('util')
+const express = require('express')
+const app = express()
+let { people } = require('./data')
 
-// const readFilePromise = util.promisify(readFile)
-// const writeFilePromise = util.promisify(writeFile)
+// static assets
+app.use(express.static('./methods-public'))
 
-// const getText = (path) => {
-//     return new Promise((resolve,reject)=>{
-//         readFile(path, 'utf8', (err, data) => {
-//             if(err){
-//                 reject(err)
-//             } else {
-//                 resolve(data)
-//             }
-//         })
-//     })
-// }
+// parse form data
+app.use(express.urlencoded({ extended: false }))
 
-// getText('./content/first.txt').then((result) => console.log(result)).catch((err)=> console.log(err))
+app.get('/api/people', (req, res) => {
+    res.status(200).json({ success: true, data: people })
+})
 
-const start = async() => {
-    try {
-        const first = await readFile('./content/first.txt', 'utf8')
-        const second = await readFile('./content/second.txt', 'utf8')
-        await writeFile('./content/result-mind-grenade.txt', `THIS IS AWESOME: ${first} ${second}`, { flag: 'a'})
-        console.log(first, second)
-    } catch (error) {
-        console.log(error)
+app.post('/login', (req, res) => {
+    const { name } = req.body
+    if (name) {
+        return res.status(200).send(`Welcome ${name}`)
     }
-}
+    res.status(401).send('Please provide credentials')
+})
 
-start()
+app.listen(5000, () => {
+    console.log('server is listening on port 5000...')
+})

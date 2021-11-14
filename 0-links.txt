@@ -1,3 +1,5 @@
-https://youtu.be/Oe421EPjeBE?t=5670
+Node and Express intro: https://youtu.be/Oe421EPjeBE?t=25696
 
 https://www.freecodecamp.org/news/build-six-node-js-and-express-js/
+
+User authentication: https://www.youtube.com/watch?v=F-sFp_AvHc8
